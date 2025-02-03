@@ -1,9 +1,9 @@
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import { fetchComparisonData } from "../../../api/comparisonApi";
 import ButtonBase from "../../ButtonBase";
-import { PiCaretDownBold as CaretDown } from "react-icons/pi";
 
 function Comparison({ className = "" }) {
   const { data, error, isLoading } = useQuery({
@@ -11,14 +11,23 @@ function Comparison({ className = "" }) {
     queryFn: fetchComparisonData,
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading data</p>;
+  const [selectedMonths, setSelectedMonths] = useState("6 months");
 
-  console.log("data: ", data)
+  if (isLoading) return <></>;
+  if (error) return <p>Error loading data</p>;
 
   const months = data.map((item) => item.month);
   const thisYearData = data.map((item) => item.this_year);
   const lastYearData = data.map((item) => item.last_year);
+
+  const monthOptions = months
+  .map((_, index) => `${months.length - index} months`)
+  .slice(0, months.length);
+
+  const selectedMonthsCount = parseInt(selectedMonths.split(" ")[0], 10);
+  const filteredMonths = months.slice(-selectedMonthsCount);
+  const filteredThisYearData = thisYearData.slice(-selectedMonthsCount);
+  const filteredLastYearData = lastYearData.slice(-selectedMonthsCount);
 
   const allData = [...thisYearData, ...lastYearData];
   const maxValue = Math.max(...allData);
@@ -76,11 +85,11 @@ function Comparison({ className = "" }) {
   };
 
   const chartData = {
-    labels: months,
+    labels: filteredMonths,
     datasets: [
       {
         label: "Last Year",
-        data: lastYearData,
+        data: filteredLastYearData,
         backgroundColor: "rgba(103, 232, 249, 0.7)",
         hoverBackgroundColor: "rgba(34, 211, 238, 1)",
         borderRadius: 4,
@@ -90,7 +99,7 @@ function Comparison({ className = "" }) {
       },
       {
         label: "This Year",
-        data: thisYearData,
+        data: filteredThisYearData,
         backgroundColor: "rgba(37, 99, 235, 0.7)",
         hoverBackgroundColor: "rgba(29, 78, 216, 1)",
         borderRadius: 4,
@@ -106,10 +115,12 @@ function Comparison({ className = "" }) {
       <div className="h-full flex flex-col gap-8">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold">Comparison</h2>
-          <ButtonBase>
-            6 months
-            <CaretDown className="font-bold text-gray-400"></CaretDown>
-          </ButtonBase>
+          <ButtonBase
+            multipleOptions
+            options={monthOptions}
+            defaultOption={selectedMonths}
+            onClick={setSelectedMonths}
+          />
         </div>
 
         <div className="w-full h-full">
