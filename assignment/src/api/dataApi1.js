@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-export const fetchFinancialSummary = async (_, { getState }) => {
+export const fetchFinancialSummaryData = async (_, { getState }) => {
   const { username, password } = getState().auth;
 
   if (!username || !password) {

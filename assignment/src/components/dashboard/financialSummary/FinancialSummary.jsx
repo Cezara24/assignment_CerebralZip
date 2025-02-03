@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFinancialSummary } from "../../../store/slices/financialSummarySlice";
+import { fetchFinancialSummaryData } from "../../../store/slices/financialSummarySlice";
 import ButtonBase from "../../ButtonBase";
 import StatCard from "./StatCard";
 import { PiCaretDownBold as CaretDown } from "react-icons/pi";
@@ -11,12 +11,12 @@ function FinancialSummary({ className = "" }) {
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchFinancialSummary());
+      dispatch(fetchFinancialSummaryData());
     }
   }, [status, dispatch]);
 
   return (
-    <div className={`flex flex-col gap-8 ${className}`}>
+    <div className={`w-full flex-[1] flex flex-col gap-8 ${className}`}>
       <div className="flex justify-between items-center">
         <h1 className="text-4xl font-semibold">Dashboard</h1>
         <div className="flex gap-4 items-center">

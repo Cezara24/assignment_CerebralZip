@@ -29,9 +29,7 @@ function Dashboard() {
       "
       >
         <FinancialSummary />
-        {/* TO DO */}
-        {/* <Comparison /> */}
-        <div className="w-full flex-[2] bg-blue-100"></div>
+        <Comparison />
         <div className="w-full flex-[2] bg-blue-50"></div>
       </Card>
 
