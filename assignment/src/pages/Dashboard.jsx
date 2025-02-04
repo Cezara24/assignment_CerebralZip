@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import FinancialSummary from "../components/dashboard/financialSummary/FinancialSummary";
 import Comparison from "../components/dashboard/comparison/Comparison";
+import PerformanceScore from "../components/dashboard/performanceScore/PerformanceScore"
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ function Dashboard() {
   return (
     <Card
       className="w-full min-h-fit grid grid-cols-5 grid-rows-5 gap-2 p-2"
-      height="calc(100vh - 4rem)"
+      height="calc(100vh - 2rem)"
     >
       <div className="row-span-5 h-full w-full"></div>
 
@@ -30,10 +31,10 @@ function Dashboard() {
       >
         <FinancialSummary />
         <Comparison />
-        <div className="w-full flex-[2] bg-blue-50"></div>
+        <div className="w-full h-full flex-[2] bg-blue-50 border-full"></div>
       </Card>
 
-      <Card className="bg-white row-span-2"></Card>
+      <PerformanceScore />
       <Card className="bg-white row-span-2"></Card>
       <Card className="bg-white"></Card>
     </Card>

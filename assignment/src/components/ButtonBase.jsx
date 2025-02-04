@@ -28,8 +28,13 @@ function ButtonBase({
       <button
         type={type}
         onClick={() => setIsOpen(!isOpen)}
-        className={`cursor-pointer rounded-full text-gray-700 shadow-sm bg-white border-2 border-gray-200 px-4 py-1 transition-colors duration-200 ease-in-out hover:bg-gray-200 
-        flex items-center justify-center gap-1
+        className={`
+          cursor-pointer rounded-full text-gray-700 font-semibold
+          shadow-sm bg-white hover:bg-gray-200
+          border-2 border-gray-200 
+          px-4 py-1 
+          transition-colors duration-200 ease-in-out  
+          flex items-center justify-center gap-1
         ${className}`}
       >
         {selectedOption}{" "}

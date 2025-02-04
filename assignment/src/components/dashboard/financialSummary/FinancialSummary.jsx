@@ -9,9 +9,9 @@ function FinancialSummary({ className = "" }) {
   const { data, status, error } = useSelector(
     (state) => state.financialSummary
   );
-
+  
   const [selectedOption, setSelectedOption] = useState("Last year");
-
+  
   useEffect(() => {
     if (status === "idle") {
       dispatch(fetchFinancialSummaryData());
@@ -23,7 +23,7 @@ function FinancialSummary({ className = "" }) {
       <div className="flex justify-between items-center">
         <h1 className="text-4xl font-semibold">Dashboard</h1>
         <div className="flex gap-4 items-center">
-          <p>Compare to</p>
+          <p className="font-semibold">Compare to</p>
           <ButtonBase
             multipleOptions
             options={[
